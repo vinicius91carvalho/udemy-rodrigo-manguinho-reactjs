@@ -7,10 +7,11 @@
             "esnext"
         ],
         "esModuleInterop": true,
+        "sourceMap": true,
         "module": "esnext",
         "moduleResolution": "node",
         "jsx": "react",
-        "rootDir": "src",
+        "rootDirs": ["src", "tests"],
         "baseUrl": "src",
         "allowJs": true,
         "skipLibCheck": true,
@@ -19,9 +20,14 @@
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
         "noEmit": true,
+        "paths": {
+            "@/tests/*": ["../tests/*"],
+            "@/*": ["*"]
+          }
     },
     "include": [
-        "src"
+        "src",
+        "tests"
     ],
     "exclude": []
 }
