@@ -4,7 +4,7 @@ import { HttpResponse, HttpStatusCode } from '@/data/protocols/http/http-respons
 export class HttpPostClientSpy implements HttpPostClient {
   params?: HttpPostClient.Params
   result: HttpResponse = {
-    statusCode: HttpStatusCode.NO_CONTENT
+    statusCode: HttpStatusCode.OK
   }
 
   async post (params: HttpPostClient.Params): Promise<HttpPostClient.Result> {
