@@ -17,7 +17,7 @@ export const Input: React.FC<Props> = (props: Props) => {
       ...state,
       [event.target.name]: event.target.value
     })
-  }, [])
+  }, [state])
 
   const getStatus = useCallback((): string => {
     return error ? '🔴' : '🟢'

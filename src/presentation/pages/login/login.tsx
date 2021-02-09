@@ -1,4 +1,5 @@
 import Styles from './login-styles.scss'
+import { Authentication } from '@/domain/usecases/authentication'
 import { FormStatus, LoginHeader, Footer, Input } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols'
@@ -6,9 +7,10 @@ import React, { useState, useEffect } from 'react'
 
 type Props = {
   validation: Validation
+  authentication: Authentication
 }
 
-export const Login: React.FC<Props> = ({ validation }: Props) => {
+export const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
   const [state, setState] = useState({
     isLoading: false,
     email: '',
@@ -21,23 +23,15 @@ export const Login: React.FC<Props> = ({ validation }: Props) => {
   useEffect(() => {
     setState({
       ...state,
-      emailError: validation.validate({
-        fieldName: 'email',
-        fieldValue: state.email
-      }),
-      passwordError: validation.validate({
-        fieldName: 'password',
-        fieldValue: state.password
-      })
+      emailError: validation.validate({ fieldName: 'email', fieldValue: state.email }),
+      passwordError: validation.validate({ fieldName: 'password', fieldValue: state.password })
     })
   }, [state.email, state.password])
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
-    setState({
-      ...state,
-      isLoading: true
-    })
+    setState({ ...state, isLoading: true })
+    await authentication.auth({ email: state.email, password: state.password })
   }
 
   return (
