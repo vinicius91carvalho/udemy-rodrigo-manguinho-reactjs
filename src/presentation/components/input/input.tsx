@@ -20,11 +20,11 @@ export const Input: React.FC<Props> = (props: Props) => {
   }, [])
 
   const getStatus = useCallback((): string => {
-    return '🔴'
-  }, [])
+    return error ? '🔴' : '🟢'
+  }, [error])
 
   const getTitle = useCallback((): string => {
-    return error
+    return error || 'Tudo certo!'
   }, [error])
 
   return (
