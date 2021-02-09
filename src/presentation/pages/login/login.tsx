@@ -21,11 +21,11 @@ export const Login: React.FC<Props> = ({ validation }: Props) => {
   useEffect(() => {
     setState({
       ...state,
-      emailError: validation?.validate({
+      emailError: validation.validate({
         fieldName: 'email',
         fieldValue: state.email
       }),
-      passwordError: validation?.validate({
+      passwordError: validation.validate({
         fieldName: 'password',
         fieldValue: state.password
       })
