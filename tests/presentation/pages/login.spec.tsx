@@ -1,21 +1,11 @@
+import { ValidationSpy } from '@/tests/presentation/mocks'
 import { Login } from '@/presentation/pages/login/login'
-import { Validation } from '@/presentation/protocols/validation'
-import { render, RenderResult, fireEvent, cleanup } from '@testing-library/react'
 import React from 'react'
+import { render, RenderResult, fireEvent, cleanup } from '@testing-library/react'
 
 type SutTypes = {
   sut: RenderResult
   validationSpy: ValidationSpy
-}
-
-class ValidationSpy implements Validation {
-  params: Validation.Params
-  result: Validation.Result
-
-  validate (params: Validation.Params): Validation.Result {
-    this.params = params
-    return this.result
-  }
 }
 
 const makeSut = (): SutTypes => {
