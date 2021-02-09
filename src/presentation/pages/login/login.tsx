@@ -20,13 +20,19 @@ export const Login: React.FC<Props> = ({ validation }: Props) => {
 
   useEffect(() => {
     if (validation) {
-      validation.validate({ email: state.email })
+      validation.validate({
+        fieldName: 'email',
+        fieldValue: state.email
+      })
     }
   }, [state.email])
 
   useEffect(() => {
     if (validation) {
-      validation.validate({ password: state.password })
+      validation.validate({
+        fieldName: 'password',
+        fieldValue: state.password
+      })
     }
   }, [state.password])
 

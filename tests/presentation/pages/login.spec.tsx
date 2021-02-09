@@ -12,8 +12,8 @@ class ValidationSpy implements Validation {
   params: Validation.Params
   result: Validation.Result
 
-  validate (input: Validation.Params): Validation.Result {
-    this.params = input
+  validate (params: Validation.Params): Validation.Result {
+    this.params = params
     return this.result
   }
 }
@@ -53,7 +53,8 @@ describe('Login Component', () => {
     const emailInput = sut.getByTestId('email')
     fireEvent.input(emailInput, { target: { value: 'any_email' } })
     expect(validationSpy.params).toEqual({
-      email: 'any_email'
+      fieldName: 'email',
+      fieldValue: 'any_email'
     })
   })
 
@@ -62,7 +63,8 @@ describe('Login Component', () => {
     const emailInput = sut.getByTestId('password')
     fireEvent.input(emailInput, { target: { value: 'any_password' } })
     expect(validationSpy.params).toEqual({
-      password: 'any_password'
+      fieldName: 'password',
+      fieldValue: 'any_password'
     })
   })
 })
