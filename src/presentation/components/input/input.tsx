@@ -25,7 +25,7 @@ export const Input: React.FC<Props> = (props: Props) => {
 
   const getTitle = useCallback((): string => {
     return error
-  }, [])
+  }, [error])
 
   return (
     <div className={Styles.inputWrap}>
