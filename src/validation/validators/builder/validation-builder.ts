@@ -4,29 +4,29 @@ import { FieldValidation } from '@/validation/protocols'
 export class ValidationBuilder {
   private constructor (
     private readonly fieldName: string,
-    private readonly validations: FieldValidation[]
+    private readonly validations: Map<string, FieldValidation>
   ) {}
 
   static field (fieldName: string): ValidationBuilder {
-    return new ValidationBuilder(fieldName, [])
+    return new ValidationBuilder(fieldName, new Map())
   }
 
   required (): ValidationBuilder {
-    this.validations.push(new RequiredFieldValidation(this.fieldName))
+    this.validations.set('RequiredFieldValidation', new RequiredFieldValidation(this.fieldName))
     return this
   }
 
   email (): ValidationBuilder {
-    this.validations.push(new EmailValidation(this.fieldName))
+    this.validations.set('EmailValidation', new EmailValidation(this.fieldName))
     return this
   }
 
   min (length: number): ValidationBuilder {
-    this.validations.push(new MinLengthValidation(this.fieldName, length))
+    this.validations.set('MinLengthValidation', new MinLengthValidation(this.fieldName, length))
     return this
   }
 
   build (): FieldValidation[] {
-    return this.validations
+    return Array.from(this.validations.values())
   }
 }
