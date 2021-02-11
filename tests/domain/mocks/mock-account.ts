@@ -1,4 +1,4 @@
-import { AccountModel } from '@/domain/models/account-model'
+import { AccountModel } from '@/domain/models'
 import { Authentication } from '@/domain/usecases/authentication'
 import faker from 'faker'
 

@@ -3,6 +3,6 @@ import { RemoteAuthentication } from '@/data/usecases/authentication/remote-auth
 import { makeAxiosHttpClient } from '@/main/factories/http/axios-http-client-factory'
 import env from '@/main/config/env'
 
-export const makeRemoteAuthentication = (): Authentication => {
-  return new RemoteAuthentication(env.API_URL, makeAxiosHttpClient())
+export const makeRemoteAuthentication = (path: string): Authentication => {
+  return new RemoteAuthentication(`${env.API_URL}${path}`, makeAxiosHttpClient())
 }
