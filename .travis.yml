@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+    - 14
+script:
+    - stylelint 'src/**/*.scss'
+    - eslint 'src/**'
+    - npm run test:ci
