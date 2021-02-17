@@ -4,9 +4,9 @@ import { SetStorage } from '@/data/protocols/storage/set-storage'
 export class LocalSaveAccessToken implements SaveAccessToken {
   constructor (private readonly setStorage: SetStorage) {}
 
-  async save (accessToken: string): Promise<void> {
+  async save ({ accessToken }: SaveAccessToken.Params): Promise<void> {
     await this.setStorage.set({
-      key: 'accessToken',
+      key: '@surveys:accessToken',
       value: accessToken
     })
   }
