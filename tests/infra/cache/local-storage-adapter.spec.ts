@@ -15,4 +15,14 @@ describe('LocalStorageAdapter', () => {
     })
     expect(localStorage.setItem).toHaveBeenCalledWith(key, value)
   })
+
+  test('Should throw if localStorage throws', async () => {
+    const sut = makeSut()
+    jest.spyOn(localStorage, 'setItem').mockImplementationOnce(() => { throw new Error() })
+    const promise = sut.set({
+      key: faker.database.column(),
+      value: faker.random.objectElement()
+    })
+    await expect(promise).rejects.toThrow(new Error())
+  })
 })
