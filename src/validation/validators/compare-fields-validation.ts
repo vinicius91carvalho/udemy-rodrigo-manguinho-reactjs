@@ -10,6 +10,6 @@ export class CompareFieldsValidation implements FieldValidation {
   }
 
   validate ({ value }: FieldValidation.Params): FieldValidation.Result {
-    return new InvalidFieldError()
+    return value !== this.valueToCompare ? new InvalidFieldError() : null
   }
 }
