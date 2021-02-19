@@ -21,3 +21,17 @@ export const mockAddAccountParams = (): AddAccount.Params => {
     passwordConfirmation: password
   }
 }
+export class AddAccountSpy implements AddAccount {
+  result = {
+    accessToken: faker.random.uuid()
+  }
+
+  params: Authentication.Params
+  callsCount = 0
+
+  async add (params: AddAccount.Params): Promise<AddAccount.Result> {
+    this.params = params
+    this.callsCount++
+    return this.result
+  }
+}

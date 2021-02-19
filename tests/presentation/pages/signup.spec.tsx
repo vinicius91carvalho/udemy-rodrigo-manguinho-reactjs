@@ -6,10 +6,11 @@ import * as Helper from '@/tests/presentation/helpers/form-helper'
 import { SignUp } from '@/presentation/pages/signup/signup'
 import { ValidationStub } from '@/tests/presentation/mocks'
 import { AddAccount } from '@/domain/usecases'
-import { mockAddAccountParams } from '@/tests/domain/mocks'
+import { AddAccountSpy, mockAddAccountParams } from '@/tests/domain/mocks'
 
 type SutTypes = {
   sut: RenderResult
+  addAccountSpy: AddAccountSpy
 }
 
 type SutParams = {
@@ -19,13 +20,16 @@ type SutParams = {
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   validationStub.result = params?.validationError
+  const addAccountSpy = new AddAccountSpy()
   const sut = render(
     <SignUp
         validation={validationStub}
+        addAccount={addAccountSpy}
     />
   )
   return {
-    sut
+    sut,
+    addAccountSpy
   }
 }
 
@@ -118,5 +122,12 @@ describe('SignUp Component', () => {
     const { sut } = makeSut()
     await simulateValidSubmit(sut, mockAddAccountParams())
     Helper.testElementExists(sut, 'spinner')
+  })
+
+  test('Should call AddAccount with correct values', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    const addAccountParams = mockAddAccountParams()
+    await simulateValidSubmit(sut, addAccountParams)
+    expect(addAccountSpy.params).toEqual(addAccountParams)
   })
 })
