@@ -130,4 +130,11 @@ describe('SignUp Component', () => {
     await simulateValidSubmit(sut, addAccountParams)
     expect(addAccountSpy.params).toEqual(addAccountParams)
   })
+
+  test('Should call AddAccount only once', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    await simulateValidSubmit(sut, mockAddAccountParams())
+    await simulateValidSubmit(sut, mockAddAccountParams())
+    expect(addAccountSpy.callsCount).toBe(1)
+  })
 })
