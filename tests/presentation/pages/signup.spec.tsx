@@ -7,6 +7,7 @@ import { SignUp } from '@/presentation/pages/signup/signup'
 import { ValidationStub } from '@/tests/presentation/mocks'
 import { AddAccount } from '@/domain/usecases'
 import { AddAccountSpy, mockAddAccountParams } from '@/tests/domain/mocks'
+import { EmailInUseError } from '@/domain/errors'
 
 type SutTypes = {
   sut: RenderResult
@@ -138,10 +139,19 @@ describe('SignUp Component', () => {
     expect(addAccountSpy.callsCount).toBe(1)
   })
 
-  test('Should not call Authentication if form is invalid', async () => {
+  test('Should not call AddAccount if form is invalid', async () => {
     const validationError = faker.random.words()
     const { sut, addAccountSpy } = makeSut({ validationError })
     await simulateValidSubmit(sut, mockAddAccountParams())
     expect(addAccountSpy.callsCount).toBe(0)
+  })
+
+  test('Should present error if AddAccount fails', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    const error = new EmailInUseError()
+    jest.spyOn(addAccountSpy, 'add').mockRejectedValueOnce(error)
+    await simulateValidSubmit(sut, mockAddAccountParams())
+    Helper.testElementText(sut, 'main-error', error.message)
+    Helper.testChildCount(sut, 'error-wrap', 1)
   })
 })
