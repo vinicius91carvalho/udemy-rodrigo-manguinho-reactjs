@@ -5,8 +5,8 @@ export class FieldValidationSpy implements FieldValidation {
   params: FieldValidation.Params
   constructor (readonly field: string) {}
 
-  validate ({ value }: FieldValidation.Params): FieldValidation.Result {
-    this.params = { value }
+  validate ({ input }: FieldValidation.Params): FieldValidation.Result {
+    this.params = { input }
     return this.result
   }
 }

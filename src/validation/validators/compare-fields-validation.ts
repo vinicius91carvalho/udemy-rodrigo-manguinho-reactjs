@@ -4,12 +4,12 @@ import { FieldValidation } from '@/validation/protocols'
 export class CompareFieldsValidation implements FieldValidation {
   constructor (
     readonly field: string,
-    private readonly valueToCompare: string
+    private readonly fieldToCompare: string
   ) {
 
   }
 
-  validate ({ value }: FieldValidation.Params): FieldValidation.Result {
-    return value !== this.valueToCompare ? new InvalidFieldError() : null
+  validate ({ input }: FieldValidation.Params): FieldValidation.Result {
+    return input[this.field] !== input[this.fieldToCompare] ? new InvalidFieldError() : null
   }
 }

@@ -5,7 +5,7 @@ export interface FieldValidation {
 
 export namespace FieldValidation {
   export type Params = {
-    value: string
+    input: object
   }
   export type Result = Error
 }
